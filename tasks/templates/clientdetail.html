@@ -1,0 +1,128 @@
+
+{%extends "base_template.html" %}
+{% block title %}<title>Client details</title>{% endblock %}
+{% load static %}
+
+
+{% block content %}
+				
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+  <!-- Projects Section -->
+  <section id="projects" class="projects-section bg-dark">
+    <div class="container">
+
+      <!-- Featured Project Row -->
+      <div class="row align-items-center mb-4 mb-lg-5">
+ <!--        <div class="col-xl-8 col-lg-7">
+          <img class="img-fluid mb-3 mb-lg-0" src="{% static 'home/img/bg-masthead.jpg' %}" alt="">
+        </div> -->
+        <div class="col-xl-4 col-lg-5">
+          <div class="featured-text text-center text-lg-left">
+            <h4>{{client.name}} </h4>
+            <p class="text-black-50 mb-0">{{client.mac}}</p>
+          </div>
+          	<form action="/tasks/imagedeployment" method="post" id="form1">
+				<select name="imageName">
+				{% for image in imagelist %}
+				  <option value="{{image.imageName}}">{{image.imageName}}</option>
+				{% endfor %}
+				</select>
+				<input type="hidden" id="client" name="client" value="{{client.mac}}">
+				<button type="submit" form="form1">Deploy</button>            
+			</form>
+        </div>
+      </div>
+        
+<!--       <center>
+      <div class="row align-items-center no-gutters mb-4 mb-lg-5">
+        <div class="col-xl-4 col-lg-5">
+          <div class="featured-text text-center text-lg-left">
+            <h4><a href ="/tasks/{{client.mac}}"><li> {{client.name}} </li></a></h4>
+            <p class="text-black-50 mb-0">{{client.mac}}</p>
+			<form action="/tasks/imagedeployment" method="post" id="form1">
+				<select name="imageName">
+				{% for image in imagelist %}
+				  <option value="{{image.imageName}}">{{image.imageName}}</option>
+				{% endfor %}
+				</select>
+				<input type="hidden" id="client" name="client" value="{{client.mac}}">
+				<button type="submit" form="form1">Deploy</button>            
+			</form>
+          </div>
+        </div>
+      </div>
+  		</center> -->
+
+
+
+
+      <!-- Project One Row -->
+      <!--<div class="row justify-content-center no-gutters mb-5 mb-lg-0">
+        <div class="col-lg-6">
+          <img class="img-fluid" src="{% static 'home/img/demo-image-01.jpg' %}" alt="">
+        </div>
+		<div class="col-lg-6">
+          <div class="bg-black text-center h-100 project">
+            <div class="d-flex h-100">
+              <div class="project-text w-100 my-auto text-center text-lg-left">
+                <h4 class="text-white">Misty</h4>
+                <p class="mb-0 text-white-50">An example of where you can put an image of a project, or anything else, along with a description.</p>
+                <hr class="d-none d-lg-block mb-0 ml-0">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+       Project Two Row 
+      <div class="row justify-content-center no-gutters">
+        <div class="col-lg-6">
+          <img class="img-fluid" src="{% static 'home/img/demo-image-02.jpg' %}" alt="">
+        </div>
+        <div class="col-lg-6 order-lg-first">
+          <div class="bg-black text-center h-100 project">
+            <div class="d-flex h-100">
+              <div class="project-text w-100 my-auto text-center text-lg-right">
+                <h4 class="text-white">Mountains</h4>
+                <p class="mb-0 text-white-50">Another example of a project with its respective description. These sections work well responsively as well, try this theme on a small screen!</p>
+                <hr class="d-none d-lg-block mb-0 mr-0">
+              </div>
+            </div>
+          </div>
+</div>
+      </div>
+-->
+    </div>
+  </section>
+
+  
+	
+
+{% endblock %}
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+	<title>Client detail</title>
+</head>
+<body>
+	{{client.mac}}
+	{{client.name}}
+	<form action="/tasks/imagedeployment" method="post" id="form1">
+		<select name="imageName">
+		{% for image in imagelist %}
+		  <option value="{{image.imageName}}">{{image.imageName}}</option>
+		{% endfor %}
+		</select>
+		<input type="hidden" id="client" name="client" value="{{client.mac}}">
+		<input type="submit" form="form1">Deploy {{client.mac}}</button>            
+	</form>
+</body>
+</html> -->
+

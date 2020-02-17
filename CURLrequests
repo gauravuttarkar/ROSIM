@@ -1,11 +1,11 @@
 Registeration
-curl -s --data "MAC=08-00-27-1c-71-6d" 127.0.0.1:8000/register
+curl -s --data "MAC=08-00-27-1c-71-6d" 127.0.0.1:8000/tasks/register
 
 To get the task
-curl -s --data "MAC=08-00-27-1c-71-6c" 127.0.0.1:8000/tasks
+curl -s --data "MAC=08-00-27-1c-71-6c" 127.0.0.1:8000/tasks/tasks
 
 To send status of task execution
-curl -s --data "MAC=08-00-27-1c-71-6c&status=1" 127.0.0.1:8000/taskstatus
+curl -s --data "MAC=08-00-27-1c-71-6c&status=1" 127.0.0.1:8000/tasks/taskstatus
 
 To create image deployment task
-curl -s --data "MAC=08-00-27-1c-71-6d&imageName=image2" 127.0.0.1:8000/imagedeployment
+curl -s --data "MAC=08-00-27-1c-71-6d&imageName=image1" 127.0.0.1:8000/imagedeployment

@@ -18,13 +18,14 @@ from django.urls import path, include
 
 
 from tasks import urls as task_urls
+from authentication import urls as authentication_urls
 from django.conf.urls.static import  static
 from django.conf import settings
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
-    path('', include(task_urls)),
+    path('tasks/', include(task_urls)),
+    path('',include(authentication_urls))
     
     ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
