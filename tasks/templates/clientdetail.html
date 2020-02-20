@@ -22,19 +22,19 @@
  <!--        <div class="col-xl-8 col-lg-7">
           <img class="img-fluid mb-3 mb-lg-0" src="{% static 'home/img/bg-masthead.jpg' %}" alt="">
         </div> -->
-        <div class="col-xl-4 col-lg-5">
+        <div style="color: #8ed1cd" class="col-xl-4 col-lg-5">
           <div class="featured-text text-center text-lg-left">
             <h4>{{client.name}} </h4>
-            <p class="text-black-50 mb-0">{{client.mac}}</p>
+            <p style="color: #8ed1cd" class="mb-0">{{client.mac}}</p>
           </div>
           	<form action="/tasks/imagedeployment" method="post" id="form1">
 				<select name="imageName">
 				{% for image in imagelist %}
-				  <option value="{{image.imageName}}">{{image.imageName}}</option>
+				  <option value="{{image.imageName}}"> {{image.imageName}} </option>
 				{% endfor %}
 				</select>
 				<input type="hidden" id="client" name="client" value="{{client.mac}}">
-				<button type="submit" form="form1">Deploy</button>            
+				<button type="submit" form="form1"> Deploy </button>            
 			</form>
         </div>
       </div>

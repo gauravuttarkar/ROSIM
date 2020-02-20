@@ -49,11 +49,13 @@ def getTasks(request):
 	tasks = Tasks.objects.all().filter(client=mac)
 	print(tasks)
 	listOfTasks = []
+
 	for task in tasks:
+		print(task.imageName)
 		di = {}
 		di['id'] = task.id
 		di['taskType'] = task.taskType
-		di['imageName'] = task.imageName
+		di['imageName'] = task.imageName.imageName
 		listOfTasks.append(di)
 
 	print(listOfTasks)
@@ -61,6 +63,7 @@ def getTasks(request):
 	'tasks' : listOfTasks
 	}
 	return JsonResponse(data)
+	#return HttpResponse("Done and dusted")
 
 def taskStatus(request):
 	mac = request.POST.get('MAC')
