@@ -54,16 +54,13 @@ def cloning(request):
 	print(partitions)	
 	print(partitionName)
 	
-	# client = '08-00-27-1c-71-6c'
 	clientInstance = Clients.objects.get(mac=client)
-	# partitionName = 'TestPartition'
-	# partitions = [1,2,3]
 	taskInstance = Tasks.objects.create(client=clientInstance, taskType='Cloning')
 	cloningInstance = Cloning.objects.create(taskId=taskInstance,partitionName=partitionName)
 	for partition in partitions:
 		Partitions.objects.create(cloningId=cloningInstance,partitionNumber=partition)
 	messages.success(request, 'Your task was created successfully!') 
-	return HttpResponse("Done and dusted")
+	return redirect('/tasks/'+client)
 
 
 def getTasks(request):
@@ -110,7 +107,11 @@ def taskStatus(request):
 	mac = request.POST.get('MAC')
 	status = request.POST.get('status')
 	if status == '0':
-		task = Tasks.objects.get(client=mac).delete()
+		task = Tasks.objects.get(client=mac)
+		if task.taskType == 'Cloning':
+			cloningInstance = Cloning.objects.get(taskId=task)
+			Images.objects.create(imageName=cloningInstance.partitionName)
+		task.delete()
 
 	return HttpResponse("Task status updated")
 
