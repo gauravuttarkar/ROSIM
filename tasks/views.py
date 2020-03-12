@@ -68,23 +68,42 @@ def cloning(request):
 
 def getTasks(request):
 	mac = request.POST.get('MAC')
-	tasks = Tasks.objects.all().filter(client=mac)
-	print(tasks)
-	listOfTasks = []
+	task = Tasks.objects.get(client=mac)
+	print(task)
+	
+	di = {}
+	di['id'] = task.id
+	di['taskType'] = task.taskType
 
-	for task in tasks:
-		print(task.imageName)
-		di = {}
-		di['id'] = task.id
-		di['taskType'] = task.taskType
-		di['imageName'] = task.imageName.imageName
-		listOfTasks.append(di)
-
-	print(listOfTasks)
-	data = {
-	'tasks' : listOfTasks
-	}
-	return JsonResponse(data)
+	if di['taskType'] == 'Cloning':
+		cloningInstance = Cloning.objects.get(taskId=task)
+		print(cloningInstance)
+		di['partitionName'] = cloningInstance.partitionName
+		partitions = Partitions.objects.all().filter(cloningId=cloningInstance)
+		print(partitions)
+		listOfPartitions = []
+		for i in partitions:
+			listOfPartitions.append(i.partitionNumber)
+		print(listOfPartitions)
+		di['partitionNumber'] = listOfPartitions
+		
+	if di['taskType'] == 'ImageDeployment':
+		deploymentInstance = Deployment.objects.get(taskId=task)
+		print(deploymentInstance.imageName.imageName)
+		di['imageName'] = deploymentInstance.imageName.imageName
+	# for task in tasks:
+	# 	print(task.imageName)
+	# 	di = {}
+	# 	di['id'] = task.id
+	# 	di['taskType'] = task.taskType
+	# 	di['imageName'] = task.imageName.imageName
+	# 	listOfTasks.append(di)
+	print(di)
+	# print(listOfTasks)
+	# data = {
+	# 'tasks' : listOfTasks
+	# }
+	return JsonResponse(di)
 	#return HttpResponse("Done and dusted")
 
 def taskStatus(request):
