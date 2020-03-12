@@ -36,7 +36,32 @@
 				<input type="hidden" id="client" name="client" value="{{client.mac}}">
 				<button type="submit" form="form1"> Deploy </button>            
 			</form>
+      <button onclick="toggleDisplay()">Cloning</button> 
         </div>
+
+<!--       popup form  starting here -->
+        
+        <div id="myDIV" style="display: none;">
+          <form action="/tasks/cloning" method="post" class="form-container">
+            <h3>Cloning</h3>
+            <input type="hidden" id="client" name="client" value="{{client.mac}}">
+            <label for="email"><b>Image name</b></label>
+            <input type="text" placeholder="Image Name" name="partitionName" required>
+
+<!--             <label for="psw"><b>Partition Number</b></label>
+            <input type="text" placeholder="Enter partition number" name="partitions" required> -->
+            <div class="container1">
+                <button class="add_form_field">Add New partition &nbsp; 
+                  <span style="font-size:16px; font-weight:bold;">+ </span>
+                </button>
+                <div><input type="text" name="partitions[]"></div>
+            </div>
+            <button type="submit" class="btn">Submit</button>
+            <button type="submit" class="btn cancel" onclick="toggleDisplay()">Close</button>
+          </form>
+        </div>
+
+<!--       popup form  ending here -->
       </div>
         
 <!--       <center>

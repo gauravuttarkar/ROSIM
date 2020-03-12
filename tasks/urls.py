@@ -12,6 +12,7 @@ urlpatterns = [
     path('register', views.registration),
     #path('imagedeployment',views.ImageDeployment),
     path('imagedeployment',views.ImageDeployment),
+    path('cloning',views.cloning),
     path('tasks',views.getTasks),
     path('taskstatus', views.taskStatus),
     path('clients', views.listClients),

@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib import auth
-from tasks.models import Clients, Tasks, Images
+from tasks.models import Clients, Tasks, Images, Deployment, Cloning, Partitions
 from django.contrib import messages
 
 def index(request):
@@ -39,10 +39,32 @@ def ImageDeployment(request):
 	clientInstance = Clients.objects.get(mac=client)
 	imageInstance = Images.objects.get(imageName=imageName)
 	print(clientInstance.mac)
-	Tasks.objects.create(client=clientInstance, taskType='ImageDeployment', imageName=imageInstance)
+	taskInstance = Tasks.objects.create(client=clientInstance, taskType='ImageDeployment')
+	Deployment.objects.create(taskId=taskInstance,imageName=imageInstance)
 	messages.success(request, 'Your task was created successfully!') 
 	return redirect('/tasks/'+client)
 	#return HttpResponse("Done and dusted")
+
+def cloning(request):
+	client = request.POST.get('client')
+	partitionName = request.POST.get('partitionName')
+	print(client)
+	
+	partitions = request.POST.getlist('partitions[]')
+	print(partitions)	
+	print(partitionName)
+	
+	# client = '08-00-27-1c-71-6c'
+	clientInstance = Clients.objects.get(mac=client)
+	# partitionName = 'TestPartition'
+	# partitions = [1,2,3]
+	taskInstance = Tasks.objects.create(client=clientInstance, taskType='Cloning')
+	cloningInstance = Cloning.objects.create(taskId=taskInstance,partitionName=partitionName)
+	for partition in partitions:
+		Partitions.objects.create(cloningId=cloningInstance,partitionNumber=partition)
+	messages.success(request, 'Your task was created successfully!') 
+	return HttpResponse("Done and dusted")
+
 
 def getTasks(request):
 	mac = request.POST.get('MAC')

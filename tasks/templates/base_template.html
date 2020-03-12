@@ -22,6 +22,7 @@
 
   <!-- Custom styles for this template -->
   <link href="{% static 'home/css/grayscale.min.css'%}" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{% static 'home/css/popup.css'%}">
 
 </head>
 
@@ -98,12 +99,47 @@
   <!-- Bootstrap core JavaScript -->
   <script src="{% static 'home/vendor/jquery/jquery.min.js' %}"></script>
   <script src="{% static 'home/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
   <!-- Plugin JavaScript -->
   <script src="{% static 'home/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
 
   <!-- Custom scripts for this template -->
   <script src="{% static 'home/js/grayscale.min.js' %}"></script>
+  <script type="text/javascript">
+    function toggleDisplay() {
+      var x = document.getElementById("myDIV");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
+  </script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+    var max_fields = 10;
+    var wrapper = $(".container1");
+    var add_button = $(".add_form_field");
+
+    var x = 1;
+    $(add_button).click(function(e) {
+        e.preventDefault();
+        if (x < max_fields) {
+            x++;
+            $(wrapper).append('<div><input type="text" name="partitions[]"/><a href="#" class="delete">Delete</a></div>'); //add input box
+        } else {
+            alert('You Reached the limits')
+        }
+    });
+
+    $(wrapper).on("click", ".delete", function(e) {
+        e.preventDefault();
+        $(this).parent('div').remove();
+        x--;
+    })
+});
+  </script>
 
 </body>
 </html>
